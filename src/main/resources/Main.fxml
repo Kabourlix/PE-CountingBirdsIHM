@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox fx:id="MainApp" maxHeight="800.0" maxWidth="1280.0" minHeight="400.0" minWidth="600.0" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <SplitPane dividerPositions="0.7" prefHeight="751.0" prefWidth="1280.0">
+        <items>
+          <AnchorPane fx:id="PictureAndMenu" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <HBox fx:id="BoxMenu" alignment="BOTTOM_CENTER" layoutX="-2.0" layoutY="638.0" prefHeight="100.0" prefWidth="897.0" spacing="100.0">
+                     <children>
+                        <HBox fx:id="Boxes" prefHeight="100.0" prefWidth="283.0" spacing="15.0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <children>
+                              <Button mnemonicParsing="false" text="Edit Box">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" text="Delete Box">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets top="25.0" />
+                           </padding>
+                        </HBox>
+                        <HBox fx:id="Boxes1" layoutX="50.0" layoutY="10.0" prefHeight="100.0" prefWidth="292.0" spacing="15.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Add Box">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" text="Restart Alg.">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets top="25.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane fx:id="Details" minHeight="0.0" minWidth="0.0" />
+        </items>
+      </SplitPane>
+      <HBox fillHeight="false" prefHeight="22.0" prefWidth="1280.0">
+         <children>
+            <Pane prefHeight="23.0" prefWidth="1280.0" />
+            <Label alignment="CENTER_RIGHT" contentDisplay="TOP" prefHeight="6.0" prefWidth="116.0" text="©IMT Altantique" textAlignment="CENTER">
+               <font>
+                  <Font size="8.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="1.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+</VBox>
