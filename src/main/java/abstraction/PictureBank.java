@@ -35,17 +35,19 @@ public class PictureBank {
         try{
             if(dir.isDirectory()){ //We make sure we are in a directory
                 File[] files = dir.listFiles(image_filter); // We create the list of all the file to extract
-                picturesBank = new Image[files.length]; //We init the pictureBank list.
+                if(files != null){
+                    picturesBank = new Image[files.length]; //We init the pictureBank list.
 
-                for(int k = 0 ; k<files.length;k++){
-                    try {
-                        picturesBank[k] = new Image(files[k].getAbsolutePath()); // We add the picture to the list
-                    }catch (Exception e){
-                        e.printStackTrace();
-                        nbPicturesFailedToLoad++;
+                    for(int k = 0 ; k<files.length;k++){
+                        try {
+                            picturesBank[k] = new Image(files[k].getAbsolutePath()); // We add the picture to the list
+                        }catch (Exception e){
+                            e.printStackTrace();
+                            nbPicturesFailedToLoad++;
+                        }
                     }
+                    System.out.println("The bank was loaded. Failed : " + nbPicturesFailedToLoad);
                 }
-                System.out.println("The bank was loaded. Failed : " + Integer.toString(nbPicturesFailedToLoad));
             }else{
                 throw new Exception();
             }
