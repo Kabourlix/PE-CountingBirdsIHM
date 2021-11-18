@@ -41,6 +41,11 @@ public class ViewController {
         nextButton.setDisable(false);
 
         currentPicture = new ImageView(firstImage);
+        currentPicture.setPreserveRatio(true);
+
+        currentPicture.fitHeightProperty().bind(picturePane.heightProperty());
+        currentPicture.fitWidthProperty().bind(picturePane.widthProperty());
+
         picturePane.getChildren().add(currentPicture);
     }
 
