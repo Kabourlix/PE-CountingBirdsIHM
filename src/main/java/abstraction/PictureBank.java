@@ -20,7 +20,7 @@ public class PictureBank {
 
     private void LoadPictureBank(String bankPath) {
         final File dir = new File(bankPath);
-        final String[] extension = {".png",".jpg",".jpeg"};
+        final String[] extension = {"png","jpg","jpeg"};
         final FilenameFilter image_filter = new FilenameFilter() {
             @Override
             public boolean accept(final File dir, final String name) {
@@ -40,13 +40,13 @@ public class PictureBank {
 
                     for(int k = 0 ; k<files.length;k++){
                         try {
-                            picturesBank[k] = new Image(files[k].getAbsolutePath()); // We add the picture to the list
+                            picturesBank[k] = new Image(files[k].toURI().toURL().toExternalForm()); // We add the picture to the list
                         }catch (Exception e){
                             e.printStackTrace();
                             nbPicturesFailedToLoad++;
                         }
                     }
-                    System.out.println("The bank was loaded. Failed : " + nbPicturesFailedToLoad);
+                    System.out.println("The bank was loaded. Failed : " + nbPicturesFailedToLoad +". It contains " + picturesBank.length + "images.");
                 }
             }else{
                 throw new Exception();
@@ -57,8 +57,20 @@ public class PictureBank {
 
     }
 
+    public Image getImage(int index){
+        if(index >= 0 && index<picturesBank.length) // if the given index is correct
+        {
+            return picturesBank[index];
+        }else{
+            System.out.println("The given index is incorrect.");
+            return null;
+
+        }
+
+    }
+
     public static void main(String[] args) { // ça marche
         System.out.println("--- Start testing ---");
-        PictureBank pb = new PictureBank("/Users/hdamaia/IdeaProjects/PE_CountingSoftware");
+        PictureBank pb = new PictureBank("/Users/hdamaia/IdeaProjects/PE_CountingSoftware/pictures");
     }
 }

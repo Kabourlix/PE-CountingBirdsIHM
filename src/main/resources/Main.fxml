@@ -13,24 +13,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<VBox fx:id="MainApp" maxHeight="800.0" maxWidth="1280.0" minHeight="400.0" minWidth="600.0" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.ViewController">
 
-<VBox fx:id="MainApp" maxHeight="800.0" maxWidth="1280.0" minHeight="400.0" minWidth="600.0" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
+    <children>
       <MenuBar>
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu fx:id="fileMenu" mnemonicParsing="false" text="Fichier">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem fx:id="loadMenuItem" mnemonicParsing="false" text="Charger les images" onAction="#onLoadAction" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu fx:id="helpMenu" mnemonicParsing="false" text="Aide">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" text="À propos" />
             </items>
           </Menu>
         </menus>
@@ -39,6 +35,7 @@
         <items>
           <AnchorPane fx:id="PictureAndMenu" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
+                  <AnchorPane fx:id="picturePane" prefHeight="637.0" prefWidth="896.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
                   <HBox fx:id="BoxMenu" alignment="BOTTOM_CENTER" layoutX="-2.0" layoutY="638.0" prefHeight="100.0" prefWidth="897.0" spacing="100.0">
                      <children>
                         <HBox fx:id="Boxes" prefHeight="100.0" prefWidth="283.0" spacing="15.0">
@@ -46,12 +43,12 @@
                               <Insets />
                            </HBox.margin>
                            <children>
-                              <Button mnemonicParsing="false" text="Edit Box">
+                              <Button fx:id="editButton" mnemonicParsing="false" text="Edit Box">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" text="Delete Box">
+                              <Button fx:id="deleteButton" mnemonicParsing="false" text="Delete Box">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
@@ -63,12 +60,12 @@
                         </HBox>
                         <HBox fx:id="Boxes1" layoutX="50.0" layoutY="10.0" prefHeight="100.0" prefWidth="292.0" spacing="15.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Add Box">
+                              <Button fx:id="addButton" mnemonicParsing="false" text="Add Box">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" text="Restart Alg.">
+                              <Button fx:id="restartButton" mnemonicParsing="false" text="Restart Alg.">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
