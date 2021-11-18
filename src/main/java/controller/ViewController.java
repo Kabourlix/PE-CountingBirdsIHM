@@ -2,6 +2,7 @@ package controller;
 
 import abstraction.PictureBank;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -16,6 +17,11 @@ public class ViewController {
     private DirectoryChooser dirChooser;
     private PictureBank pictureBank;
     private Stage stage;
+    private ImageView currentPicture;
+
+
+    @FXML private Button nextButton;
+    @FXML private Button prevButton;
 
     @FXML private AnchorPane picturePane;
 
@@ -27,9 +33,41 @@ public class ViewController {
         {
             pictureBank = new PictureBank(selectedFile.getAbsolutePath());
         }
-        //TODO : Add the display of the first image.
+        //Add the display of the first image.
         Image firstImage = pictureBank.getImage(0);
-        picturePane.getChildren().add(new ImageView(firstImage));
+
+        pictureBank.setCurrentIndex(0);
+        prevButton.setDisable(true);
+        nextButton.setDisable(false);
+
+        currentPicture = new ImageView(firstImage);
+        picturePane.getChildren().add(currentPicture);
+    }
+
+    @FXML protected void onNextImage()
+    {
+        int currentIndex = pictureBank.getCurrentIndex();
+        if(currentIndex < pictureBank.getImagesLength()-1)
+        {
+            currentIndex++;
+            pictureBank.setCurrentIndex(currentIndex);
+            currentPicture.setImage(pictureBank.getImage(currentIndex));
+            if(currentIndex == pictureBank.getImagesLength()-1){nextButton.setDisable(true);}
+            if(prevButton.isDisabled()){prevButton.setDisable(false);}
+        }
+    }
+
+    @FXML protected void onPrevImage()
+    {
+        int currentIndex = pictureBank.getCurrentIndex();
+        if(currentIndex > 0)
+        {
+            currentIndex--;
+            pictureBank.setCurrentIndex(currentIndex);
+            currentPicture.setImage(pictureBank.getImage(currentIndex));
+            if(currentIndex == 0){prevButton.setDisable(true);}
+            if(nextButton.isDisabled()){nextButton.setDisable(false);}
+        }
     }
 
     public void init(Stage s)

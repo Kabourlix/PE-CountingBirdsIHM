@@ -13,6 +13,11 @@ public class PictureBank {
     private Image[] picturesBank;
     private int nbPicturesFailedToLoad = 0;
 
+    private int currentIndex;
+    public void setCurrentIndex(int i){currentIndex = i;}
+    public int getCurrentIndex(){return currentIndex;}
+
+    public int getImagesLength(){return picturesBank.length;}
     public PictureBank(String _path){
         LoadPictureBank(_path);
 

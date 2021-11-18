@@ -13,15 +13,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="MainApp" maxHeight="800.0" maxWidth="1280.0" minHeight="400.0" minWidth="600.0" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controller.ViewController">
+<VBox fx:id="MainApp" maxHeight="800.0" maxWidth="1280.0" minHeight="400.0" minWidth="600.0" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
 
     <children>
       <MenuBar>
         <menus>
           <Menu fx:id="fileMenu" mnemonicParsing="false" text="Fichier">
             <items>
-              <MenuItem fx:id="loadMenuItem" mnemonicParsing="false" text="Charger les images" onAction="#onLoadAction" />
+              <MenuItem fx:id="loadMenuItem" mnemonicParsing="false" onAction="#onLoadAction" text="Charger les images" />
             </items>
           </Menu>
           <Menu fx:id="helpMenu" mnemonicParsing="false" text="Aide">
@@ -35,7 +34,13 @@
         <items>
           <AnchorPane fx:id="PictureAndMenu" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <AnchorPane fx:id="picturePane" prefHeight="637.0" prefWidth="896.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
+                  <HBox fx:id="navButtons" prefHeight="50.0" prefWidth="896.0">
+                     <children>
+                        <Button fx:id="prevButton" disable="true" mnemonicParsing="false" onAction="#onPrevImage" text="&lt;" />
+                        <Button fx:id="nextButton" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onNextImage" text="&gt;" />
+                     </children>
+                  </HBox>
+                  <AnchorPane fx:id="picturePane" layoutY="42.0" maxHeight="597.0" maxWidth="881.0" prefHeight="597.0" prefWidth="881.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="50.0" />
                   <HBox fx:id="BoxMenu" alignment="BOTTOM_CENTER" layoutX="-2.0" layoutY="638.0" prefHeight="100.0" prefWidth="897.0" spacing="100.0">
                      <children>
                         <HBox fx:id="Boxes" prefHeight="100.0" prefWidth="283.0" spacing="15.0">
