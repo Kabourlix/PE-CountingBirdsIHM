@@ -1,10 +1,12 @@
 package controller;
 
+import abstraction.BoxesModel;
 import abstraction.PictureBank;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -18,6 +20,11 @@ public class ViewController {
     private PictureBank pictureBank;
     private Stage stage;
     private ImageView currentPicture;
+
+    private BoxesModel boxesModel;
+
+    private Mode mode;
+    private SelectionMode selectionMode;
 
 
     @FXML private Button nextButton;
@@ -47,7 +54,19 @@ public class ViewController {
         currentPicture.fitWidthProperty().bind(picturePane.widthProperty());
 
         picturePane.getChildren().add(currentPicture);
+
+        boxesModel = new BoxesModel(pictureBank.getImagesLength());
+        initModes();
     }
+
+    private void initModes(){
+        selectionMode = new SelectionMode(boxesModel);
+        mode = selectionMode;
+
+        mode.getCurrentImageIDProperty().bind(pictureBank.getCurrentIndexProperty()); // We bind the image index of mode to the image id of picture bank
+        // Thus any change made to the picture bank one will affect the mode one.
+    }
+
 
     @FXML protected void onNextImage()
     {
@@ -81,4 +100,13 @@ public class ViewController {
     }
 
 
+    public void onMousePressed(MouseEvent mouseEvent) {
+    }
+
+    public void onMouseClicked(MouseEvent mouseEvent) {
+        mode.onMouseClicked(mouseEvent);
+    }
+
+    public void onMouseDragged(MouseEvent mouseEvent) {
+    }
 }

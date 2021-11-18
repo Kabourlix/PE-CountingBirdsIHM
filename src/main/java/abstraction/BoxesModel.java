@@ -3,6 +3,7 @@ package abstraction;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.effect.Light;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.util.*;
@@ -32,9 +33,21 @@ public class BoxesModel {
      */
     public void getBox(int imageID, Point2D mousePos){
         int nbBox = boxesPerImage.get(imageID).size();
-        for(int k=0;k<nbBox;k++){
-            currentBox = boxesPerImage.get(imageID).get(k).getRectangleBox().contains(mousePos) ? k : null;
+        if(currentBox != null) //We deselect the previous box if there was one.
+        {
+            boxesPerImage.get(imageID).get(currentBox).isSelected(false);
+            currentBox = null; // We reinit current box.
         }
+        for(int k=0;k<nbBox;k++){
+            Box b= boxesPerImage.get(imageID).get(k);
+            if(b.getRectangleBox().contains(mousePos)){
+                currentBox = k;
+                b.isSelected(true);
+                break;
+            }
+
+        }
+
     }
 
     /***
@@ -64,6 +77,7 @@ public class BoxesModel {
             double minX = Math.min(start.getX(),end.getX());
             double minY = Math.min(start.getY(),end.getY());
             rectangleBox = new Rectangle(minX,minY, Math.abs(start.getX()-end.getX()),Math.abs(start.getY()-end.getY()));
+            rectangleBox.setStroke(Color.RED);
         }
 
         public void setBirdSpecies(int id){
@@ -84,6 +98,20 @@ public class BoxesModel {
             rectangleBox.setY(Math.min(y0,y1));
             rectangleBox.setWidth(Math.abs(x0-x1));
             rectangleBox.setHeight(Math.abs(y0-y1));
+        }
+
+        private void highlightBox(boolean b){
+            if(b)
+            {
+                rectangleBox.setFill(new Color(255f, 0f, 0f, 0.2f));
+            }
+            else{
+                rectangleBox.setFill(null);
+            }
+        }
+
+        public void isSelected(boolean b){
+            this.highlightBox(b);
         }
     }
 }
