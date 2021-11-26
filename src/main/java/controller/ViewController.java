@@ -4,6 +4,7 @@ import abstraction.BoxesModel;
 import abstraction.PictureBank;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,6 +28,7 @@ public class ViewController {
     private Mode mode;
     private SelectionMode selectionMode;
     private AddMode addMode;
+    private EditMode editMode;
 
 
     @FXML private Button nextButton;
@@ -72,6 +74,7 @@ public class ViewController {
     private void initModes(){
         selectionMode = new SelectionMode(boxesModel, picturePane);
         addMode = new AddMode(boxesModel,picturePane);
+        editMode = new EditMode(boxesModel, picturePane);
         mode = selectionMode;
 
         mode.getCurrentImageIDProperty().bind(pictureBank.getCurrentIndexProperty()); // We bind the image index of mode to the image id of picture bank
@@ -124,7 +127,31 @@ public class ViewController {
     }
 
     public void addIsClicked(ActionEvent actionEvent) {
-        mode = addMode;
-        System.out.println("We currently change mode.");
+        if(mode.getModeName()!="add"){
+            mode = addMode;
+            addButton.setText("Select Box");
+        }
+        else{
+            mode = selectionMode;
+            addButton.setText("Add Box");
+        }
+
+    }
+
+
+    // Change cursor on button and pane
+
+    public void onMouseEnteredPane(MouseEvent mouseEvent) {
+        if(mode != null){
+            if(mode.getModeName() == "add"){
+                stage.getScene().setCursor(Cursor.CROSSHAIR);
+            }
+        }
+
+    }
+
+
+    public void onMouseExitedPane(MouseEvent mouseEvent) {
+        stage.getScene().setCursor(Cursor.DEFAULT);
     }
 }

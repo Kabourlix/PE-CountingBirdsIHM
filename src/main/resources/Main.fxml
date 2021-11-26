@@ -40,7 +40,7 @@
                         <Button fx:id="nextButton" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onNextImage" text="&gt;" />
                      </children>
                   </HBox>
-                  <AnchorPane fx:id="picturePane" layoutY="42.0" maxHeight="597.0" maxWidth="881.0" onMouseClicked="#onMouseClicked" onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" prefHeight="597.0" prefWidth="881.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="50.0" />
+                  <AnchorPane fx:id="picturePane" layoutY="42.0" maxHeight="597.0" maxWidth="881.0" onMouseClicked="#onMouseClicked" onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" onMouseEntered="#onMouseEnteredPane" onMouseExited="#onMouseExitedPane" prefHeight="597.0" prefWidth="881.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="50.0" />
                   <HBox fx:id="BoxMenu" alignment="BOTTOM_CENTER" layoutX="-2.0" layoutY="638.0" prefHeight="100.0" prefWidth="897.0" spacing="100.0">
                      <children>
                         <HBox fx:id="Boxes" prefHeight="100.0" prefWidth="283.0" spacing="15.0">

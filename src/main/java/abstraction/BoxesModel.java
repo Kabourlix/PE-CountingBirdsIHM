@@ -24,7 +24,7 @@ public class BoxesModel {
 
     public void addBox(int imageID, Point2D start, Point2D end, int birdID){
         boxesPerImage.get(imageID).add(new Box(start,end));
-        currentBox =  -1;
+        currentBox =  boxesPerImage.get(imageID).size()-1;
     }
 
     /***
@@ -83,6 +83,7 @@ public class BoxesModel {
             double minY = Math.min(start.getY(),end.getY());
             rectangleBox = new Rectangle(minX,minY, Math.abs(start.getX()-end.getX()),Math.abs(start.getY()-end.getY()));
             rectangleBox.setStroke(Color.RED);
+            rectangleBox.setFill(Color.TRANSPARENT);
         }
 
         public void setBirdSpecies(int id){

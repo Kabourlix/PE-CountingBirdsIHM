@@ -12,6 +12,7 @@ import javafx.scene.shape.Rectangle;
 public class SelectionMode extends Mode {
     public SelectionMode(BoxesModel boxesModel, AnchorPane picture) {
         super(boxesModel, picture);
+        modeName = "selection";
     }
 
     @Override

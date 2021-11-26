@@ -7,7 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 abstract class Mode {
-    private String modeName;
+    protected String modeName;
     protected BoxesModel boxesModel;
     protected IntegerProperty currentImageID = new SimpleIntegerProperty();
     protected AnchorPane picture;
@@ -18,6 +18,7 @@ abstract class Mode {
     }
 
     public IntegerProperty getCurrentImageIDProperty(){return currentImageID;}
+    public String getModeName(){return modeName;}
     protected abstract void onMouseClicked(MouseEvent e);
     protected abstract void onMousePressed(MouseEvent e);
     protected abstract void onMouseDragged(MouseEvent e);
