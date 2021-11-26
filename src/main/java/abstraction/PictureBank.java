@@ -1,6 +1,7 @@
 package abstraction;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.Image;
 
 import java.io.File;
@@ -14,7 +15,7 @@ public class PictureBank {
     private Image[] picturesBank;
     private int nbPicturesFailedToLoad = 0;
 
-    private IntegerProperty currentIndex;
+    private IntegerProperty currentIndex = new SimpleIntegerProperty();
     public void setCurrentIndex(int i){currentIndex.set(i);}
     public int getCurrentIndex(){return currentIndex.get();}
     public IntegerProperty getCurrentIndexProperty(){return currentIndex;}
@@ -22,7 +23,6 @@ public class PictureBank {
     public int getImagesLength(){return picturesBank.length;}
     public PictureBank(String _path){
         LoadPictureBank(_path);
-
     }
 
     private void LoadPictureBank(String bankPath) {

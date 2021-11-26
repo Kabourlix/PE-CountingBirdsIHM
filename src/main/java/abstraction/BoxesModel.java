@@ -24,6 +24,7 @@ public class BoxesModel {
 
     public void addBox(int imageID, Point2D start, Point2D end, int birdID){
         boxesPerImage.get(imageID).add(new Box(start,end));
+        currentBox =  -1;
     }
 
     /***
@@ -60,6 +61,10 @@ public class BoxesModel {
             boxesPerImage.get(imageID).get(currentBox).setRectangleBox(mousePos);
         }
 
+    }
+
+    public Rectangle getRectangleBox(int imageID){
+        return boxesPerImage.get(imageID).get(currentBox).getRectangleBox();
     }
 
 

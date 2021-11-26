@@ -2,6 +2,7 @@ package controller;
 
 import abstraction.BoxesModel;
 import abstraction.PictureBank;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -25,10 +26,16 @@ public class ViewController {
 
     private Mode mode;
     private SelectionMode selectionMode;
+    private AddMode addMode;
 
 
     @FXML private Button nextButton;
     @FXML private Button prevButton;
+
+    @FXML private Button editButton;
+    @FXML private Button deleteButton;
+    @FXML private Button addButton;
+    @FXML private Button restartButton;
 
     @FXML private AnchorPane picturePane;
 
@@ -56,11 +63,15 @@ public class ViewController {
         picturePane.getChildren().add(currentPicture);
 
         boxesModel = new BoxesModel(pictureBank.getImagesLength());
+        addButton.setDisable(false);
+        restartButton.setDisable(false);
+
         initModes();
     }
 
     private void initModes(){
-        selectionMode = new SelectionMode(boxesModel);
+        selectionMode = new SelectionMode(boxesModel, picturePane);
+        addMode = new AddMode(boxesModel,picturePane);
         mode = selectionMode;
 
         mode.getCurrentImageIDProperty().bind(pictureBank.getCurrentIndexProperty()); // We bind the image index of mode to the image id of picture bank
@@ -101,6 +112,7 @@ public class ViewController {
 
 
     public void onMousePressed(MouseEvent mouseEvent) {
+        mode.onMousePressed(mouseEvent);
     }
 
     public void onMouseClicked(MouseEvent mouseEvent) {
@@ -108,5 +120,11 @@ public class ViewController {
     }
 
     public void onMouseDragged(MouseEvent mouseEvent) {
+        mode.onMouseDragged(mouseEvent);
+    }
+
+    public void addIsClicked(ActionEvent actionEvent) {
+        mode = addMode;
+        System.out.println("We currently change mode.");
     }
 }
