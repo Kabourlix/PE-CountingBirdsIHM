@@ -5,6 +5,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 public class AddMode extends Mode{
 
@@ -24,8 +25,11 @@ public class AddMode extends Mode{
         Point2D position = new Point2D(e.getX(),e.getY());
        // System.out.println("We have the current data : " + currentImageID.get() + " and mouse position : " + position.toString());
         boxesModel.addBox(currentImageID.get(),position,position,1); // I puted random bird ID
-        new_rectangle = boxesModel.getRectangleBox(currentImageID.get());
-        picture.getChildren().add(new_rectangle);
+        //new_rectangle = boxesModel.getRectangleBox(currentImageID.get());
+        for (Shape a : boxesModel.getShapes(currentImageID.get())){
+            picture.getChildren().add(a);
+        }
+        //picture.getChildren().add(new_rectangle);
     }
 
     @Override

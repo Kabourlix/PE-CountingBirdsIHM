@@ -19,7 +19,7 @@ public class SelectionMode extends Mode {
     protected void onMouseClicked(MouseEvent e) {
         Point2D position = new Point2D(e.getX(),e.getY());
         boxesModel.getBox(currentImageID.get(),position);
-        System.out.println("The click is detected");
+
     }
 
     @Override

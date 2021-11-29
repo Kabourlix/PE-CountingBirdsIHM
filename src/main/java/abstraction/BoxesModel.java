@@ -4,7 +4,9 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.effect.Light;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 import java.util.*;
 
@@ -67,6 +69,10 @@ public class BoxesModel {
         return boxesPerImage.get(imageID).get(currentBox).getRectangleBox();
     }
 
+    public Shape[] getShapes(int imageID){
+        return boxesPerImage.get(imageID).get(currentBox).getShapes();
+    }
+
 
 
     private class Box{
@@ -75,15 +81,32 @@ public class BoxesModel {
         private int birdSpeciesId;
         private Rectangle rectangleBox;
 
+        private Circle topCircle;
+        private Circle bottomCircle;
+
+        private double radius = 5;
+
         public Box(Point2D start, Point2D end){
             this.start = start;
             this.end = end;
 
             double minX = Math.min(start.getX(),end.getX());
+            double maxX = Math.max(start.getX(),end.getX());
             double minY = Math.min(start.getY(),end.getY());
+            double maxY = Math.max(start.getY(),end.getY());
+
+
             rectangleBox = new Rectangle(minX,minY, Math.abs(start.getX()-end.getX()),Math.abs(start.getY()-end.getY()));
             rectangleBox.setStroke(Color.RED);
             rectangleBox.setFill(Color.TRANSPARENT);
+
+            topCircle = new Circle(minX,minY,radius);
+            bottomCircle = new Circle(maxX,maxY,radius);
+
+            topCircle.setStroke(Color.RED);
+            bottomCircle.setStroke(Color.RED);
+            topCircle.setFill(Color.RED);
+            bottomCircle.setFill(Color.RED);
         }
 
         public void setBirdSpecies(int id){
@@ -94,22 +117,31 @@ public class BoxesModel {
             return rectangleBox;
         }
 
+        public Shape[] getShapes(){return new Shape[]{rectangleBox,topCircle,bottomCircle};}
+
         public void setRectangleBox(Point2D end) {
             this.end = end;
-            double x0 = start.getX();
-            double x1 = end.getX();
-            double y0 = start.getY();
-            double y1 = end.getY();
-            rectangleBox.setX(Math.min(x0,x1));
-            rectangleBox.setY(Math.min(y0,y1));
-            rectangleBox.setWidth(Math.abs(x0-x1));
-            rectangleBox.setHeight(Math.abs(y0-y1));
+            double minX = Math.min(start.getX(),end.getX());
+            double maxX = Math.max(start.getX(),end.getX());
+            double minY = Math.min(start.getY(),end.getY());
+            double maxY = Math.max(start.getY(),end.getY());
+
+            rectangleBox.setX(minX);
+            rectangleBox.setY(minY);
+            rectangleBox.setWidth(Math.abs(minX-maxX));
+            rectangleBox.setHeight(Math.abs(minY-maxY));
+
+            topCircle.setCenterX(minX);
+            topCircle.setCenterY(minY);
+            bottomCircle.setCenterY(maxY);
+            bottomCircle.setCenterX(maxX);
         }
 
         private void highlightBox(boolean b){
+            System.out.println("Higlithed entered ");
             if(b)
             {
-                rectangleBox.setFill(new Color(255f, 0f, 0f, 0.2f));
+                rectangleBox.setFill(new Color(1f, 0f, 0f, 0.2f));
             }
             else{
                 rectangleBox.setFill(null);
