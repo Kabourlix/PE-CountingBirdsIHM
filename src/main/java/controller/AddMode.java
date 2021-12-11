@@ -24,7 +24,7 @@ public class AddMode extends Mode{
     protected void onMousePressed(MouseEvent e) { //TODO : Verify the currentImageID value & set it right.
         Point2D position = new Point2D(e.getX(),e.getY());
        // System.out.println("We have the current data : " + currentImageID.get() + " and mouse position : " + position.toString());
-        boxesModel.addBox(currentImageID.get(),position,position,1); // I puted random bird ID
+        boxesModel.addBox(currentImageID.get(),position,position); // I puted random bird ID
         //new_rectangle = boxesModel.getRectangleBox(currentImageID.get());
         for (Shape a : boxesModel.getShapes(currentImageID.get())){
             picture.getChildren().add(a);

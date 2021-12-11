@@ -2,6 +2,8 @@ package controller;
 
 import abstraction.BoxesModel;
 import abstraction.PictureBank;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -68,9 +70,17 @@ public class ViewController {
         addButton.setDisable(false);
         restartButton.setDisable(false);
 
+        startAlgorithms();
         initModes();
+        initListeners();
     }
 
+    /***
+     * This function launches the scripts models.
+     */
+    private void startAlgorithms(){
+
+    }
     private void initModes(){
         selectionMode = new SelectionMode(boxesModel, picturePane);
         addMode = new AddMode(boxesModel,picturePane);
@@ -113,7 +123,7 @@ public class ViewController {
         stage = s;
     }
 
-
+    // Mouse interaction with the pane
     public void onMousePressed(MouseEvent mouseEvent) {
         mode.onMousePressed(mouseEvent);
     }
@@ -129,16 +139,29 @@ public class ViewController {
     public void addIsClicked(ActionEvent actionEvent) {
         if(mode.getModeName()!="add"){
             mode = addMode;
-            addButton.setText("Select Box");
+            addButton.setText("Select");
         }
         else{
             mode = selectionMode;
-            addButton.setText("Add Box");
+            addButton.setText("Add");
         }
 
     }
 
+    // Listeners for some specifics variables
+    private void initListeners(){
+        boxesModel.currentBoxProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number oldNumber, Number newNumber) {
+                System.out.println("Current box has changed : " + (Integer) oldNumber + " -> " + (Integer) newNumber);
+                selectBox((Integer) oldNumber,(Integer) newNumber);
+            }
+        });
+    }
 
+    private void selectBox(int selectedBox, int oldSelectedBox){
+
+    }
     // Change cursor on button and pane
 
     public void onMouseEnteredPane(MouseEvent mouseEvent) {
