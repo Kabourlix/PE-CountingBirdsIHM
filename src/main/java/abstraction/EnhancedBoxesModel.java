@@ -29,8 +29,10 @@ public class EnhancedBoxesModel {
      * @param start : up left corner of the box.
      * @param end : bottom right corner of the box.
      */
-    public void addBox(int imageID, Point2D start, Point2D end){
-        boxesPerImage.get(imageID).add(new BirdBox(start,end));
+    public BirdBox addBox(int imageID, Point2D start, Point2D end){
+        BirdBox addedBox = new BirdBox(start,end);
+        boxesPerImage.get(imageID).add(addedBox);
+        return addedBox;
     }
 
     /***

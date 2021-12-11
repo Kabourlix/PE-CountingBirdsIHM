@@ -87,6 +87,10 @@ public class BirdBox {
         for (Shape a: getShapes()) {
             a.setStroke(b ? highlightStrokeColor : normalStrokeColor);
         }
+    }
+
+    public void highlightEditModeBox(boolean b){
+        highlightBox(true); // We make sure the selection is displayed for the user when he wants to edit a box.
         topCircle.setVisible(b);
         bottomCircle.setVisible(b);
     }

@@ -1,6 +1,6 @@
 package controller;
 
-import abstraction.BoxesModel;
+import abstraction.EnhancedBoxesModel;
 import abstraction.PictureBank;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,8 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import java.io.File;
@@ -25,12 +23,13 @@ public class ViewController {
     private Stage stage;
     private ImageView currentPicture;
 
-    private BoxesModel boxesModel;
+    private EnhancedBoxesModel boxesModel;
 
     private Mode mode;
     private SelectionMode selectionMode;
     private AddMode addMode;
     private EditMode editMode;
+
 
 
     @FXML private Button nextButton;
@@ -43,14 +42,19 @@ public class ViewController {
 
     @FXML private AnchorPane picturePane;
 
+    /***
+     * This method is called when we load the pictures from a folder.
+     */
     @FXML protected void onLoadAction()
     {
+        // Load the pictures and create a pictureBank to manage them.
         dirChooser = new DirectoryChooser();
         File selectedFile = dirChooser.showDialog(stage);
         if(selectedFile != null)
         {
             pictureBank = new PictureBank(selectedFile.getAbsolutePath());
         }
+
         //Add the display of the first image.
         Image firstImage = pictureBank.getImage(0);
 
@@ -66,7 +70,7 @@ public class ViewController {
 
         picturePane.getChildren().add(currentPicture);
 
-        boxesModel = new BoxesModel(pictureBank.getImagesLength());
+        boxesModel = new EnhancedBoxesModel(pictureBank.getImagesLength());
         addButton.setDisable(false);
         restartButton.setDisable(false);
 
@@ -82,9 +86,9 @@ public class ViewController {
 
     }
     private void initModes(){
-        selectionMode = new SelectionMode(boxesModel, picturePane);
+        selectionMode = new SelectionMode(boxesModel, picturePane,editButton,deleteButton);
         addMode = new AddMode(boxesModel,picturePane);
-        editMode = new EditMode(boxesModel, picturePane);
+        editMode = new EditMode(boxesModel, picturePane, editButton, deleteButton);
         mode = selectionMode;
 
         mode.getCurrentImageIDProperty().bind(pictureBank.getCurrentIndexProperty()); // We bind the image index of mode to the image id of picture bank
@@ -137,33 +141,43 @@ public class ViewController {
     }
 
     public void addIsClicked(ActionEvent actionEvent) {
-        if(mode.getModeName()!="add"){
-            mode = addMode;
-            addButton.setText("Select");
-        }
-        else{
-            mode = selectionMode;
-            addButton.setText("Add");
-        }
+        setMode(!mode.getModeName().equals("selection") ? "selection" : "add");
+    }
 
+    private void setMode(String modeName){
+        System.out.println("Current mode is " + mode.getModeName() + " and we want to get to " + modeName);
+        if(modeName.equals(mode.getModeName())) return; // We do nothing if it's the same mode
+        mode.onModeChanged(modeName);
+        switch (modeName){
+            case "add" :{
+                mode = addMode;
+                addButton.setText("Select");
+                break;
+            }
+            case "edit" : {
+                editMode.setBoxToEdit(selectionMode.getCurrentBox()); //!Not very safe, to be updated in future version.
+                mode = editMode;
+                editButton.setDisable(true);
+                addButton.setText("Select");
+                break;
+            }
+            case "selection" :{
+                mode = selectionMode;
+                addButton.setText("Add");
+                break;
+            }
+        }
     }
 
     // Listeners for some specifics variables
     private void initListeners(){
-        boxesModel.currentBoxProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number oldNumber, Number newNumber) {
-                System.out.println("Current box has changed : " + (Integer) oldNumber + " -> " + (Integer) newNumber);
-                selectBox((Integer) oldNumber,(Integer) newNumber);
-            }
-        });
-    }
-
-    private void selectBox(int selectedBox, int oldSelectedBox){
 
     }
+
+
+
+
     // Change cursor on button and pane
-
     public void onMouseEnteredPane(MouseEvent mouseEvent) {
         if(mode != null){
             if(mode.getModeName() == "add"){
@@ -172,9 +186,14 @@ public class ViewController {
         }
 
     }
-
-
     public void onMouseExitedPane(MouseEvent mouseEvent) {
         stage.getScene().setCursor(Cursor.DEFAULT);
+    }
+
+    public void onEditButtonIsClicked(ActionEvent actionEvent) {
+        setMode("edit");
+    }
+
+    public void onDeleteButtonIsClicked(ActionEvent actionEvent) {
     }
 }

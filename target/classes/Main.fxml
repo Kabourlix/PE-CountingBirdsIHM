@@ -48,12 +48,12 @@
                               <Insets />
                            </HBox.margin>
                            <children>
-                              <Button fx:id="editButton" disable="true" mnemonicParsing="false" text="Edit Box">
+                              <Button fx:id="editButton" disable="true" mnemonicParsing="false" onAction="#onEditButtonIsClicked" text="Edit Box">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="deleteButton" disable="true" mnemonicParsing="false" text="Delete Box">
+                              <Button fx:id="deleteButton" disable="true" mnemonicParsing="false" onAction="#onDeleteButtonIsClicked" text="Delete Box">
                                  <font>
                                     <Font size="25.0" />
                                  </font>

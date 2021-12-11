@@ -1,6 +1,7 @@
 package controller;
 
-import abstraction.BoxesModel;
+import abstraction.BirdBox;
+import abstraction.EnhancedBoxesModel;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -9,8 +10,8 @@ import javafx.scene.shape.Shape;
 
 public class AddMode extends Mode{
 
-    private Rectangle new_rectangle;
-    public AddMode(BoxesModel boxesModel, AnchorPane picture) {
+    private BirdBox currentlyAddedBox;
+    public AddMode(EnhancedBoxesModel boxesModel, AnchorPane picture) {
         super(boxesModel,picture);
         modeName = "add";
     }
@@ -24,9 +25,9 @@ public class AddMode extends Mode{
     protected void onMousePressed(MouseEvent e) { //TODO : Verify the currentImageID value & set it right.
         Point2D position = new Point2D(e.getX(),e.getY());
        // System.out.println("We have the current data : " + currentImageID.get() + " and mouse position : " + position.toString());
-        boxesModel.addBox(currentImageID.get(),position,position); // I puted random bird ID
+        currentlyAddedBox = boxesModel.addBox(currentImageID.get(),position,position); // I puted random bird ID
         //new_rectangle = boxesModel.getRectangleBox(currentImageID.get());
-        for (Shape a : boxesModel.getShapes(currentImageID.get())){
+        for (Shape a : currentlyAddedBox.getShapes()){
             picture.getChildren().add(a);
         }
         //picture.getChildren().add(new_rectangle);
@@ -34,8 +35,11 @@ public class AddMode extends Mode{
 
     @Override
     protected void onMouseDragged(MouseEvent e) {
-        boxesModel.editBox(currentImageID.get(),new Point2D(e.getX(),e.getY()));
-        new_rectangle = boxesModel.getRectangleBox(currentImageID.get());
-        //picture.getChildren().set(0,toDrawn);
+        currentlyAddedBox.editBox(new Point2D(e.getX(),e.getY()));
+    }
+
+    @Override
+    protected void onModeChanged(String newMode) {
+        // This does nothing
     }
 }
