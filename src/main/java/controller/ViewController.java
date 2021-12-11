@@ -20,6 +20,7 @@ import javafx.scene.shape.Shape;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class ViewController {
@@ -53,8 +54,7 @@ public class ViewController {
     /***
      * This method is called when we load the pictures from a folder.
      */
-    @FXML protected void onLoadAction()
-    {
+    @FXML protected void onLoadAction() throws FileNotFoundException {
         // Load the pictures and create a pictureBank to manage them.
         dirChooser = new DirectoryChooser();
         File selectedFile = dirChooser.showDialog(stage);
@@ -88,8 +88,8 @@ public class ViewController {
     /***
      * This function launches the scripts models.
      */
-    private void startAlgorithms(){
-
+    private void startAlgorithms() throws FileNotFoundException {
+        boxesModel.runPythonCSVScripts("salut","salut");
     }
     private void initModes(){
         IntegerProperty imageIDProp = pictureBank.getCurrentIndexProperty();

@@ -6,15 +6,17 @@ import javafx.geometry.Point2D;
 import javafx.scene.effect.Light;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class EnhancedBoxesModel {
 
     private List<List<BirdBox>> boxesPerImage;
-    private List<String> speciesList;
+    private Map<Integer,String> speciesList;
 
     public EnhancedBoxesModel(int nbOfImage){
         boxesPerImage = new ArrayList<>();
@@ -76,6 +78,19 @@ public class EnhancedBoxesModel {
         }
     }
 
+    public void runPythonCSVScripts(String localisationPath, String classificationPath) throws FileNotFoundException {
+        // This is a sample code, and it works.
+        try{
+            ProcessBuilder pb = new ProcessBuilder("python","test.py");
+            pb.directory(new File("/Users/hdamaia/IdeaProjects/PE_CountingSoftware/src/main/python"));
+            pb.start();
+        }catch(Exception e) {
+            System.out.println("Exception Raised" + e.toString());
+        }
+        //getBoxesFromCSV(localisationPath);
+        //getBirdSpeciesFromCSV(classificationPath);
+    }
+
 
     /***
      * Get the boxes from the .csv files from localisation algorithm.
@@ -84,7 +99,7 @@ public class EnhancedBoxesModel {
      * @param path : the path of the produced .csv file
      * @throws FileNotFoundException if the file cannot be loaded.
      */
-    public void getBoxesFromCSV(String path) throws FileNotFoundException {
+    private void getBoxesFromCSV(String path) throws FileNotFoundException {
         try {
             BufferedReader csv = new BufferedReader(new FileReader(path));
             String row;
@@ -105,21 +120,30 @@ public class EnhancedBoxesModel {
      * @param path
      * @throws FileNotFoundException
      */
-    public void getBirdSpeciesFromCSV(String path) throws FileNotFoundException {
+    private void getBirdSpeciesFromCSV(String path) throws FileNotFoundException {
         try{
             BufferedReader csv = new BufferedReader(new FileReader(path));
             String row;
             while ((row = csv.readLine()) != null){
                 String[] data = row.split(",");
                 int imageID = Integer.parseInt(data[0]);
-                //TODO : Edit the box bird ID;
-                //setBoxManually(imageID,Integer.parseInt(data[1]));
-                //setBird(imageID,Integer.parseInt(data[2]));
+
+                int birdID = Integer.parseInt(data[2]);
+                isIdInSpeciesList(imageID,data[3]);
+                boxesPerImage.get(imageID).get(Integer.parseInt(data[1])).setBirdSpecies(birdID);
             }
             System.out.println("The file hase been correctly loaded.");
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void isIdInSpeciesList(int idToCheck,String birdName){
+        for(Integer id : speciesList.keySet()){
+            if(idToCheck == id) return;
+        }
+        // If we get off the for loop, it means the id hasn't been found
+        speciesList.put(idToCheck, birdName);
     }
 
 
