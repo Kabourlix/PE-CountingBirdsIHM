@@ -7,6 +7,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Shape;
 
 /***
  * This mode is made for selecting Boxes on the image.
@@ -77,6 +78,16 @@ public class SelectionMode extends Mode {
             //There is no other case.
         }
 
+    }
+
+    @Override
+    protected void onDeleteClicked() {
+        if(currentBox!=null){
+            boxesModel.deleteBox(currentImageID.get(),currentBox);
+            currentBox = null;
+            editButton.setDisable(true);
+            deleteButton.setDisable(true);
+        }
     }
 
     public BirdBox getCurrentBox(){return currentBox;}

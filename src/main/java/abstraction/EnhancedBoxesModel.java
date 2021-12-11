@@ -32,6 +32,7 @@ public class EnhancedBoxesModel {
     public BirdBox addBox(int imageID, Point2D start, Point2D end){
         BirdBox addedBox = new BirdBox(start,end);
         boxesPerImage.get(imageID).add(addedBox);
+        addedBox.setId(boxesPerImage.get(imageID).size());
         return addedBox;
     }
 
@@ -55,6 +56,10 @@ public class EnhancedBoxesModel {
      */
     public List<BirdBox> getAllBoxes(int imageID){
         return boxesPerImage.get(imageID);
+    }
+
+    public void deleteBox(int imageID,BirdBox boxToDelete){
+        boxesPerImage.get(imageID).remove(boxToDelete);
     }
 
 

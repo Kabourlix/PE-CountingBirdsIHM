@@ -80,7 +80,6 @@ public class ViewController {
 
         startAlgorithms();
         initModes();
-        initListeners();
     }
 
     /***
@@ -191,16 +190,14 @@ public class ViewController {
             }
             case "selection" :{
                 mode = selectionMode;
+                editButton.setDisable(true);
+                deleteButton.setDisable(true);
                 addButton.setText("Add");
                 break;
             }
         }
     }
 
-    // Listeners for some specifics variables
-    private void initListeners(){
-
-    }
 
 
 
@@ -223,5 +220,7 @@ public class ViewController {
     }
 
     public void onDeleteButtonIsClicked(ActionEvent actionEvent) {
+        mode.onDeleteClicked();
+        updateBoxesToDisplay();
     }
 }

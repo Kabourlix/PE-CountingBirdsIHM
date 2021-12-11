@@ -55,5 +55,13 @@ public class EditMode extends Mode{
 
     }
 
+    @Override
+    protected void onDeleteClicked() {
+        if(boxToEdit!=null){
+            boxesModel.deleteBox(currentImageID.get(),boxToEdit);
+            boxToEdit = null;
+        }
+    }
+
     public void setBoxToEdit(BirdBox b){boxToEdit = b;}
 }

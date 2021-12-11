@@ -41,4 +41,9 @@ public class AddMode extends Mode{
     protected void onModeChanged(String newMode) {
         // This does nothing
     }
+
+    @Override
+    protected void onDeleteClicked() {
+
+    }
 }

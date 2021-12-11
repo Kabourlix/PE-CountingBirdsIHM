@@ -6,6 +6,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
+import java.util.Objects;
+
 public class BirdBox {
     private Point2D start;
     private Point2D end;
@@ -95,5 +97,16 @@ public class BirdBox {
         bottomCircle.setVisible(b);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BirdBox birdBox = (BirdBox) o;
+        return id == birdBox.id;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

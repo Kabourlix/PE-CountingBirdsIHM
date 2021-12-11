@@ -24,4 +24,6 @@ abstract class Mode {
     protected abstract void onMousePressed(MouseEvent e);
     protected abstract void onMouseDragged(MouseEvent e);
     protected abstract void onModeChanged(String newMode);
+
+    protected abstract void onDeleteClicked();
 }
