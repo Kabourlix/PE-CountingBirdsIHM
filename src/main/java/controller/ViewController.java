@@ -10,10 +10,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Shape;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -42,9 +44,11 @@ public class ViewController {
     @FXML private Button editButton;
     @FXML private Button deleteButton;
     @FXML private Button addButton;
-    @FXML private Button restartButton;
 
     @FXML private AnchorPane picturePane;
+
+    @FXML private Label amountBirds;
+    @FXML private VBox birdSpecificDetails;
 
     /***
      * This method is called when we load the pictures from a folder.
@@ -76,7 +80,6 @@ public class ViewController {
 
         boxesModel = new EnhancedBoxesModel(pictureBank.getImagesLength());
         addButton.setDisable(false);
-        restartButton.setDisable(false);
 
         startAlgorithms();
         initModes();
@@ -222,5 +225,12 @@ public class ViewController {
     public void onDeleteButtonIsClicked(ActionEvent actionEvent) {
         mode.onDeleteClicked();
         updateBoxesToDisplay();
+    }
+
+    /***
+     * This methods update the model when the species of a bird related to a certain box is updated by the user.
+     * @param actionEvent
+     */
+    public void onBirdSpeciesChanged(ActionEvent actionEvent) {
     }
 }
