@@ -2,6 +2,7 @@ package controller;
 
 import abstraction.BirdBox;
 import abstraction.EnhancedBoxesModel;
+import javafx.beans.property.IntegerProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -11,8 +12,8 @@ import javafx.scene.shape.Shape;
 public class AddMode extends Mode{
 
     private BirdBox currentlyAddedBox;
-    public AddMode(EnhancedBoxesModel boxesModel, AnchorPane picture) {
-        super(boxesModel,picture);
+    public AddMode(EnhancedBoxesModel boxesModel, AnchorPane picture, IntegerProperty imageIdProp) {
+        super(boxesModel,picture,imageIdProp);
         modeName = "add";
     }
 
@@ -23,14 +24,12 @@ public class AddMode extends Mode{
 
     @Override
     protected void onMousePressed(MouseEvent e) { //TODO : Verify the currentImageID value & set it right.
+        System.out.println("Current image id from mode is " + currentImageID.get());
         Point2D position = new Point2D(e.getX(),e.getY());
-       // System.out.println("We have the current data : " + currentImageID.get() + " and mouse position : " + position.toString());
         currentlyAddedBox = boxesModel.addBox(currentImageID.get(),position,position); // I puted random bird ID
-        //new_rectangle = boxesModel.getRectangleBox(currentImageID.get());
         for (Shape a : currentlyAddedBox.getShapes()){
             picture.getChildren().add(a);
         }
-        //picture.getChildren().add(new_rectangle);
     }
 
     @Override

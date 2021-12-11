@@ -1,7 +1,9 @@
 package controller;
 
+import abstraction.BirdBox;
 import abstraction.EnhancedBoxesModel;
 import abstraction.PictureBank;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -12,9 +14,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Shape;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.util.List;
 
 public class ViewController {
 
@@ -86,37 +90,62 @@ public class ViewController {
 
     }
     private void initModes(){
-        selectionMode = new SelectionMode(boxesModel, picturePane,editButton,deleteButton);
-        addMode = new AddMode(boxesModel,picturePane);
-        editMode = new EditMode(boxesModel, picturePane, editButton, deleteButton);
+        IntegerProperty imageIDProp = pictureBank.getCurrentIndexProperty();
+        selectionMode = new SelectionMode(boxesModel, picturePane,imageIDProp,editButton,deleteButton);
+        addMode = new AddMode(boxesModel,picturePane,imageIDProp);
+        editMode = new EditMode(boxesModel, picturePane, imageIDProp, editButton, deleteButton);
         mode = selectionMode;
 
-        mode.getCurrentImageIDProperty().bind(pictureBank.getCurrentIndexProperty()); // We bind the image index of mode to the image id of picture bank
-        // Thus any change made to the picture bank one will affect the mode one.
     }
 
+    private void updateBoxesToDisplay(){
+        picturePane.getChildren().clear();
+        picturePane.getChildren().add(currentPicture);
+        List<BirdBox> boxes = boxesModel.getAllBoxes(pictureBank.getCurrentIndex());
+        for(BirdBox box : boxes ){
+            for (Shape a : box.getShapes()){
+                picturePane.getChildren().add(a);
+            }
+        }
+
+
+    }
 
     @FXML protected void onNextImage()
     {
+        // Gestion de l'image
         int currentIndex = pictureBank.getCurrentIndex();
+
         if(currentIndex < pictureBank.getImagesLength()-1)
         {
+            setMode("selection");
+
             currentIndex++;
             pictureBank.setCurrentIndex(currentIndex);
             currentPicture.setImage(pictureBank.getImage(currentIndex));
+
+            updateBoxesToDisplay();
+
             if(currentIndex == pictureBank.getImagesLength()-1){nextButton.setDisable(true);}
             if(prevButton.isDisabled()){prevButton.setDisable(false);}
+
         }
     }
 
     @FXML protected void onPrevImage()
     {
         int currentIndex = pictureBank.getCurrentIndex();
+
         if(currentIndex > 0)
         {
+            setMode("selection");
+
             currentIndex--;
             pictureBank.setCurrentIndex(currentIndex);
             currentPicture.setImage(pictureBank.getImage(currentIndex));
+
+            updateBoxesToDisplay();
+
             if(currentIndex == 0){prevButton.setDisable(true);}
             if(nextButton.isDisabled()){nextButton.setDisable(false);}
         }
@@ -145,7 +174,6 @@ public class ViewController {
     }
 
     private void setMode(String modeName){
-        System.out.println("Current mode is " + mode.getModeName() + " and we want to get to " + modeName);
         if(modeName.equals(mode.getModeName())) return; // We do nothing if it's the same mode
         mode.onModeChanged(modeName);
         switch (modeName){

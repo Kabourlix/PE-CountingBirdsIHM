@@ -2,6 +2,7 @@ package controller;
 
 import abstraction.BirdBox;
 import abstraction.EnhancedBoxesModel;
+import javafx.beans.property.IntegerProperty;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -11,8 +12,8 @@ public class EditMode extends Mode{
     private Button editButton;
     private Button deleteButton;
 
-    public EditMode(EnhancedBoxesModel boxesModel, AnchorPane picture, Button editButton, Button deleteButton) {
-        super(boxesModel, picture);
+    public EditMode(EnhancedBoxesModel boxesModel, AnchorPane picture, IntegerProperty imageIdProp , Button editButton, Button deleteButton) {
+        super(boxesModel, picture,imageIdProp);
         modeName = "edit";
         this.editButton = editButton;
         this.deleteButton = deleteButton;

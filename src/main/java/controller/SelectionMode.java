@@ -2,6 +2,7 @@ package controller;
 
 import abstraction.BirdBox;
 import abstraction.EnhancedBoxesModel;
+import javafx.beans.property.IntegerProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -15,8 +16,8 @@ public class SelectionMode extends Mode {
     private Button editButton;
     private  Button deleteButton;
 
-    public SelectionMode(EnhancedBoxesModel boxesModel, AnchorPane picture, Button editButton, Button deleteButton) {
-        super(boxesModel, picture);
+    public SelectionMode(EnhancedBoxesModel boxesModel, AnchorPane picture, IntegerProperty imageIdProp , Button editButton, Button deleteButton) {
+        super(boxesModel, picture, imageIdProp);
         modeName = "selection";
         currentBox = null;
 

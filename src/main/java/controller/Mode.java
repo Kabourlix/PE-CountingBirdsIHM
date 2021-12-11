@@ -9,15 +9,16 @@ import javafx.scene.layout.AnchorPane;
 abstract class Mode {
     protected String modeName;
     protected EnhancedBoxesModel boxesModel;
-    protected IntegerProperty currentImageID = new SimpleIntegerProperty();
+    protected IntegerProperty currentImageID;
     protected AnchorPane picture;
 
-    public Mode(EnhancedBoxesModel boxesModel, AnchorPane picture){
+    public Mode(EnhancedBoxesModel boxesModel, AnchorPane picture, IntegerProperty imageIDProp){
         this.boxesModel = boxesModel;
         this.picture = picture;
+        currentImageID = imageIDProp;
+
     }
 
-    public IntegerProperty getCurrentImageIDProperty(){return currentImageID;}
     public String getModeName(){return modeName;}
     protected abstract void onMouseClicked(MouseEvent e);
     protected abstract void onMousePressed(MouseEvent e);
