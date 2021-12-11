@@ -14,6 +14,7 @@ import java.util.List;
 public class EnhancedBoxesModel {
 
     private List<List<BirdBox>> boxesPerImage;
+    private List<String> speciesList;
 
     public EnhancedBoxesModel(int nbOfImage){
         boxesPerImage = new ArrayList<>();
@@ -60,6 +61,19 @@ public class EnhancedBoxesModel {
 
     public void deleteBox(int imageID,BirdBox boxToDelete){
         boxesPerImage.get(imageID).remove(boxToDelete);
+    }
+
+    /***
+     * This function provides the species name of bird according to an associated index. (They are stored in this class)
+     * @param index
+     * @return string : bird species name.
+     */
+    public String getSpeciesName(int index){
+        if(index ==-1){
+            return "Unspecified";
+        }else{
+            return speciesList.get(index);
+        }
     }
 
 

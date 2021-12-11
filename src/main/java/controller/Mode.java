@@ -3,8 +3,10 @@ package controller;
 import abstraction.EnhancedBoxesModel;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 abstract class Mode {
     protected String modeName;
@@ -12,10 +14,15 @@ abstract class Mode {
     protected IntegerProperty currentImageID;
     protected AnchorPane picture;
 
-    public Mode(EnhancedBoxesModel boxesModel, AnchorPane picture, IntegerProperty imageIDProp){
+    protected VBox details;
+    protected Label amountBirds;
+
+    public Mode(EnhancedBoxesModel boxesModel, AnchorPane picture, IntegerProperty imageIDProp, VBox details, Label amountBirds){
         this.boxesModel = boxesModel;
         this.picture = picture;
         currentImageID = imageIDProp;
+        this.details = details;
+        this.amountBirds = amountBirds;
 
     }
 

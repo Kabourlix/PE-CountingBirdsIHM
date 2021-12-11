@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -70,11 +71,6 @@
                                     <Font size="25.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="restartButton" disable="true" mnemonicParsing="false" text="Restart Alg.">
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
-                              </Button>
                            </children>
                            <padding>
                               <Insets top="25.0" />
@@ -84,7 +80,34 @@
                   </HBox>
                </children>
             </AnchorPane>
-          <AnchorPane fx:id="Details" minHeight="0.0" minWidth="0.0" />
+          <AnchorPane fx:id="Details" minHeight="0.0" minWidth="0.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                     <children>
+                        <VBox fx:id="birdSpecificDetails" alignment="TOP_CENTER" disable="true" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                           <children>
+                              <AnchorPane fx:id="birdPictureZoom" maxHeight="200.0" maxWidth="200.0" minHeight="200.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </AnchorPane>
+                              <TextField fx:id="birdSpecies" maxHeight="30.0" maxWidth="220.0" minHeight="30.0" minWidth="150.0" prefHeight="30.0" prefWidth="180.0" onAction="#onBirdSpeciesChanged"/>
+                              <Pane prefHeight="100.0" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="globalBirdsDetails" alignment="CENTER" prefHeight="500.0" prefWidth="100.0">
+                           <children>
+                              <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <Label text="Oiseaux présent sur l'image :" />
+                                    <Label fx:id="amountBirds" text="0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children></AnchorPane>
         </items>
       </SplitPane>
       <HBox fillHeight="false" prefHeight="22.0" prefWidth="1280.0">

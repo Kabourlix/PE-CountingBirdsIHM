@@ -93,9 +93,9 @@ public class ViewController {
     }
     private void initModes(){
         IntegerProperty imageIDProp = pictureBank.getCurrentIndexProperty();
-        selectionMode = new SelectionMode(boxesModel, picturePane,imageIDProp,editButton,deleteButton);
-        addMode = new AddMode(boxesModel,picturePane,imageIDProp);
-        editMode = new EditMode(boxesModel, picturePane, imageIDProp, editButton, deleteButton);
+        selectionMode = new SelectionMode(boxesModel, picturePane,imageIDProp,birdSpecificDetails,amountBirds,editButton,deleteButton);
+        addMode = new AddMode(boxesModel,picturePane,imageIDProp,birdSpecificDetails,amountBirds);
+        editMode = new EditMode(boxesModel, picturePane, imageIDProp, birdSpecificDetails, amountBirds, editButton, deleteButton);
         mode = selectionMode;
 
     }

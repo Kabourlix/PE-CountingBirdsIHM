@@ -51,8 +51,10 @@ public class BirdBox {
 
         topCircle.setVisible(false);
         bottomCircle.setVisible(false);
+        birdSpeciesId = -1; //initally set to an impossible value.
     }
 
+    public int getBirdSpeciesId(){return birdSpeciesId;}
     public void setBirdSpecies(int id){
         birdSpeciesId = id;
     }

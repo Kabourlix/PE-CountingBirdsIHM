@@ -4,16 +4,18 @@ import abstraction.BirdBox;
 import abstraction.EnhancedBoxesModel;
 import javafx.beans.property.IntegerProperty;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 public class AddMode extends Mode{
 
     private BirdBox currentlyAddedBox;
-    public AddMode(EnhancedBoxesModel boxesModel, AnchorPane picture, IntegerProperty imageIdProp) {
-        super(boxesModel,picture,imageIdProp);
+    public AddMode(EnhancedBoxesModel boxesModel, AnchorPane picture, IntegerProperty imageIdProp, VBox details, Label amountBirds) {
+        super(boxesModel,picture,imageIdProp,details, amountBirds);
         modeName = "add";
     }
 

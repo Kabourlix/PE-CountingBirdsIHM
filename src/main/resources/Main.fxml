@@ -91,8 +91,7 @@
                                     <Insets top="10.0" />
                                  </VBox.margin>
                               </AnchorPane>
-                              <TextField fx:id="birdSpecies" maxHeight="30.0" maxWidth="220.0" minHeight="30.0" minWidth="150.0" prefHeight="30.0" prefWidth="180.0" onAction="#onBirdSpeciesChanged"/>
-                              <Pane prefHeight="100.0" prefWidth="200.0" />
+                              <TextField fx:id="birdSpecies" maxHeight="30.0" maxWidth="220.0" minHeight="30.0" minWidth="150.0" onAction="#onBirdSpeciesChanged" prefHeight="30.0" prefWidth="180.0" />
                            </children>
                         </VBox>
                         <VBox fx:id="globalBirdsDetails" alignment="CENTER" prefHeight="500.0" prefWidth="100.0">

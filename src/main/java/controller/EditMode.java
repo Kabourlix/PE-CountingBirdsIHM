@@ -4,16 +4,18 @@ import abstraction.BirdBox;
 import abstraction.EnhancedBoxesModel;
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 public class EditMode extends Mode{
     private BirdBox boxToEdit;
     private Button editButton;
     private Button deleteButton;
 
-    public EditMode(EnhancedBoxesModel boxesModel, AnchorPane picture, IntegerProperty imageIdProp , Button editButton, Button deleteButton) {
-        super(boxesModel, picture,imageIdProp);
+    public EditMode(EnhancedBoxesModel boxesModel, AnchorPane picture, IntegerProperty imageIdProp , VBox details, Label amountBirds, Button editButton, Button deleteButton) {
+        super(boxesModel, picture,imageIdProp,details, amountBirds);
         modeName = "edit";
         this.editButton = editButton;
         this.deleteButton = deleteButton;
