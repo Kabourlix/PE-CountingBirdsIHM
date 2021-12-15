@@ -3,6 +3,7 @@ package controller;
 import abstraction.BirdBox;
 import abstraction.EnhancedBoxesModel;
 import javafx.beans.property.IntegerProperty;
+import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -46,6 +47,11 @@ public class AddMode extends Mode{
 
     @Override
     protected void onDeleteClicked() {
+
+    }
+
+    @Override
+    protected void onSpeciesNameChange(ActionEvent e) {
 
     }
 }

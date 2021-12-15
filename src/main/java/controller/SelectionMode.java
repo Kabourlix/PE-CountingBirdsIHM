@@ -3,6 +3,7 @@ package controller;
 import abstraction.BirdBox;
 import abstraction.EnhancedBoxesModel;
 import javafx.beans.property.IntegerProperty;
+import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -51,6 +52,7 @@ public class SelectionMode extends Mode {
 
             //We deal with the details window
             details.setDisable(false);
+            species.setText(boxesModel.getSpeciesName(currentBox.getBirdSpeciesId())); // We update its name.
 
 
             //We enable the edit button
@@ -103,6 +105,13 @@ public class SelectionMode extends Mode {
             editButton.setDisable(true);
             deleteButton.setDisable(true);
         }
+    }
+
+    @Override
+    protected void onSpeciesNameChange(ActionEvent e) {
+        int newID = boxesModel.getSpeciesIndex(species.getText());
+        currentBox.setBirdSpecies(newID); // We store the new ID;
+        //! ça ne marche pas, le nouveau nom écrit n'est pas enregistré.
     }
 
     public BirdBox getCurrentBox(){return currentBox;}

@@ -17,12 +17,16 @@ public class EnhancedBoxesModel {
 
     private List<List<BirdBox>> boxesPerImage;
     private Map<Integer,String> speciesList;
+    private int[] birdsAmount; // This count the ammount of birds on each picture
+
+    public int getAmountForPicture(int i){return birdsAmount[i];}
 
     public EnhancedBoxesModel(int nbOfImage){
         boxesPerImage = new ArrayList<>();
-
+        birdsAmount = new int[nbOfImage];
         for (int i =0; i<nbOfImage; i++){
             boxesPerImage.add(new ArrayList<BirdBox>());
+            birdsAmount[i] = 0; //We initialize the amount of birds per picture
         }
     }
 
@@ -36,6 +40,7 @@ public class EnhancedBoxesModel {
         BirdBox addedBox = new BirdBox(start,end);
         boxesPerImage.get(imageID).add(addedBox);
         addedBox.setId(boxesPerImage.get(imageID).size());
+        birdsAmount[imageID] += 1;
         return addedBox;
     }
 
@@ -63,6 +68,7 @@ public class EnhancedBoxesModel {
 
     public void deleteBox(int imageID,BirdBox boxToDelete){
         boxesPerImage.get(imageID).remove(boxToDelete);
+        birdsAmount[imageID] -= 1;
     }
 
     /***
@@ -76,6 +82,24 @@ public class EnhancedBoxesModel {
         }else{
             return speciesList.get(index);
         }
+    }
+
+    /***
+     * This function provides the species index according to an associated name.
+     * @param speciesName
+     * @return int : species index.
+     */
+    public int getSpeciesIndex(String speciesName){
+        int id = -1;
+        for(int i : speciesList.keySet()){
+            id = speciesList.get(i).equalsIgnoreCase(speciesName) ? i : id;
+        }
+        if(id==-1){
+            id = speciesList.size(); // We had a new id (since they are created ordonnaly starting by 0)
+            speciesList.put(id, speciesName);
+        }
+
+        return id;
     }
 
     public void runPythonCSVScripts(String localisationPath, String classificationPath) throws FileNotFoundException {

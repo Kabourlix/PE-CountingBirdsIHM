@@ -3,6 +3,7 @@ package controller;
 import abstraction.EnhancedBoxesModel;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -33,4 +34,5 @@ abstract class Mode {
     protected abstract void onModeChanged(String newMode);
 
     protected abstract void onDeleteClicked();
+    protected abstract void onSpeciesNameChange(ActionEvent actionEvent);
 }

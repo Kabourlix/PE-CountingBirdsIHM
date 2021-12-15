@@ -4,6 +4,7 @@ import abstraction.BirdBox;
 import abstraction.EnhancedBoxesModel;
 import abstraction.PictureBank;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -51,6 +52,10 @@ public class ViewController {
     @FXML private Label amountBirds;
     @FXML private VBox birdSpecificDetails;
 
+
+    private IntegerProperty birdsAmountOnCurrentPicture = new SimpleIntegerProperty();
+    public void setBirdsAmountOnCurrentPicture(int i){birdsAmountOnCurrentPicture.set(i);};
+
     /***
      * This method is called when we load the pictures from a folder.
      */
@@ -83,6 +88,13 @@ public class ViewController {
 
         startAlgorithms();
         initModes();
+
+        birdsAmountOnCurrentPicture.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+                amountBirds.setText(Integer.toString(birdsAmountOnCurrentPicture.get()));
+            }
+        });
     }
 
     /***
@@ -101,6 +113,7 @@ public class ViewController {
     }
 
     private void updateBoxesToDisplay(){
+        setMode("selection");
         picturePane.getChildren().clear();
         picturePane.getChildren().add(currentPicture);
         List<BirdBox> boxes = boxesModel.getAllBoxes(pictureBank.getCurrentIndex());
@@ -109,6 +122,7 @@ public class ViewController {
                 picturePane.getChildren().add(a);
             }
         }
+        birdsAmountOnCurrentPicture.set(boxesModel.getAmountForPicture(pictureBank.getCurrentIndex()));
 
 
     }
@@ -164,7 +178,9 @@ public class ViewController {
     }
 
     public void onMouseClicked(MouseEvent mouseEvent) {
+
         mode.onMouseClicked(mouseEvent);
+        birdsAmountOnCurrentPicture.set((picturePane.getChildren().size()-1)/3);
     }
 
     public void onMouseDragged(MouseEvent mouseEvent) {
