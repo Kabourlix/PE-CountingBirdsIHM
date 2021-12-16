@@ -13,6 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/***
+ * This class contain the boxes model and how they interact with the interface. It also stores the data of all our boxes related
+ * to each pictures.
+ * It is a key element of the application.
+ */
 public class EnhancedBoxesModel {
 
     private List<List<BirdBox>> boxesPerImage;
@@ -66,6 +71,11 @@ public class EnhancedBoxesModel {
         return boxesPerImage.get(imageID);
     }
 
+    /***
+     * This methods deletes a selected box
+     * @param imageID : the image related.
+     * @param boxToDelete : the box to delete.
+     */
     public void deleteBox(int imageID,BirdBox boxToDelete){
         boxesPerImage.get(imageID).remove(boxToDelete);
         birdsAmount[imageID] -= 1;
@@ -102,6 +112,13 @@ public class EnhancedBoxesModel {
         return id;
     }
 
+    /***
+     * This function must run the python script associated with the machine learning algorithms.
+     * For the moment, it only test a "hello world" script.
+     * @param localisationPath
+     * @param classificationPath
+     * @throws FileNotFoundException
+     */
     public void runPythonCSVScripts(String localisationPath, String classificationPath) throws FileNotFoundException {
         // This is a sample code, and it works.
         try{
@@ -162,6 +179,11 @@ public class EnhancedBoxesModel {
         }
     }
 
+    /***
+     * This function checks if the id given by the user exists in our database. Otherwise, it adds it.
+     * @param idToCheck
+     * @param birdName
+     */
     private void isIdInSpeciesList(int idToCheck,String birdName){
         for(Integer id : speciesList.keySet()){
             if(idToCheck == id) return;

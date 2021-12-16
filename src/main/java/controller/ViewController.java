@@ -24,6 +24,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+/***
+ * This class is vital to the application.
+ * This is the controller that links the UI elements (the fxml file, editable with Scene Builder) and the model of the
+ * application (PAC model).
+ * It stores all the data related to the UI needeed, and all the model so as to make connections/interactions between them.
+ */
 public class ViewController {
 
     private DirectoryChooser dirChooser;
@@ -112,6 +118,9 @@ public class ViewController {
 
     }
 
+    /***
+     * This function deals with the boxes saved when we change picture or when we delete one.
+     */
     private void updateBoxesToDisplay(){
         setMode("selection");
         picturePane.getChildren().clear();
@@ -127,6 +136,9 @@ public class ViewController {
 
     }
 
+    /***
+     * Function linked with the navigation button. For when the button is changed.
+     */
     @FXML protected void onNextImage()
     {
         // Gestion de l'image
@@ -148,6 +160,9 @@ public class ViewController {
         }
     }
 
+    /***
+     * Same thing but backward.
+     */
     @FXML protected void onPrevImage()
     {
         int currentIndex = pictureBank.getCurrentIndex();
@@ -187,6 +202,10 @@ public class ViewController {
         mode.onMouseDragged(mouseEvent);
     }
 
+    /***
+     * Deals with the add/select button action.
+     * @param actionEvent
+     */
     public void addIsClicked(ActionEvent actionEvent) {
         setMode(!mode.getModeName().equals("selection") ? "selection" : "add");
     }

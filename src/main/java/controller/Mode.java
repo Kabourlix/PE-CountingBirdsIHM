@@ -9,6 +9,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/***
+ * This will set the working mode of the application : is the user selecting ? adding a box ? editing a box ?
+ * This abstract class must be inherited to create another mode.
+ */
 abstract class Mode {
     protected String modeName;
     protected EnhancedBoxesModel boxesModel;
@@ -28,11 +32,39 @@ abstract class Mode {
     }
 
     public String getModeName(){return modeName;}
+
+    /***
+     * This method is called whenever the user click on the AnchorPanel to which the picture is attached to.
+     * @param e
+     */
     protected abstract void onMouseClicked(MouseEvent e);
+
+    /***
+     * Same thing on press.
+     * @param e
+     */
     protected abstract void onMousePressed(MouseEvent e);
+
+    /***
+     * Same thing on mouse dragged.
+     * @param e
+     */
     protected abstract void onMouseDragged(MouseEvent e);
+
+    /***
+     * This method is called when we change mod to communicate information between modes.
+     * @param newMode
+     */
     protected abstract void onModeChanged(String newMode);
 
+    /***
+     * This function deals with the deletion of a box.
+     */
     protected abstract void onDeleteClicked();
+
+    /***
+     * This method is called whenever the species attached to the box must be changed.
+     * @param actionEvent
+     */
     protected abstract void onSpeciesNameChange(ActionEvent actionEvent);
 }

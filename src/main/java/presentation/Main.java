@@ -9,6 +9,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/***
+ * This is the main class that call all the javafx function to link the fxml with our controller and start our application
+ * Nothing should be done/added here.
+ */
 public class Main extends Application {
 
     private Stage stage;

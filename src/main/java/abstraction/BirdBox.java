@@ -9,6 +9,10 @@ import javafx.scene.shape.Shape;
 
 import java.util.Objects;
 
+/***
+ * This class contains the box implementation and the data associated to it.
+ * To make any graphical modification, the model of the box must be edited.
+ */
 public class BirdBox {
     private Point2D start;
     private Point2D end;
@@ -78,6 +82,9 @@ public class BirdBox {
         end = new Point2D(maxX,maxY);
     }
 
+    /***
+     * General function to set up the position of the box. Applying correct value to start and end.
+     */
     private void setupPosition(){
         double minX = start.getX();
         double maxX = end.getX();
@@ -95,6 +102,8 @@ public class BirdBox {
         bottomCircle.setCenterX(maxX);
     }
 
+    //!DO : There is a problem with the box editing : when moving to far to the left or the top, the box is compressed
+    //! and not anymore edited as wanted.
     /***
      * Edit the position of the box and the associated circles.
      * @param end
